@@ -126,7 +126,7 @@
 <body>
     <!-- Background Music (hidden) -->
     <audio id="bgMusic" loop>
-        <source src="videoplayback.m4a" type="audio/mpeg">
+        <source src="videoplayback.mp3" type="audio/mp3">
     </audio>
     
     <!-- Music Control -->
@@ -369,9 +369,7 @@
             isMusicPlaying = !isMusicPlaying;
         }
         
-                setTimeout(() => {
-  if (!isMusicPlaying) toggleMusic();
-}, 3000);
+
         
         // Love timer
         function updateLoveTimer() {
@@ -462,4 +460,5 @@
     </script>
 </body>
 </html>
+
 
