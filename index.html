@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our 7th Monthsary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #f8f0ff 100%);
+            color: #5a3d5c;
+            overflow-x: hidden;
+        }
+        
+        .dancing-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .heart {
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .photo-placeholder {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #d1a3ff;
+            transition: all 0.3s ease;
+        }
+        
+        .photo-placeholder:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .memory-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .love-letter {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .love-letter:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .timer-box {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 5px;
+            min-width: 80px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music (hidden) -->
+    <audio id="bgMusic" loop>
+        <source src="videoplayback.m4a" type="audio/mpeg">
+    </audio>
+    
+    <!-- Music Control -->
+    <div class="music-control" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-music text-purple-500"></i>
+    </div>
+    
+    <!-- Floating Hearts Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-10 left-1/4 text-pink-300 text-4xl opacity-30 floating" style="animation-delay: 0s;">❤</div>
+        <div class="absolute top-1/3 left-3/4 text-purple-300 text-3xl opacity-30 floating" style="animation-delay: 0.5s;">❤</div>
+        <div class="absolute top-2/3 left-1/5 text-pink-200 text-5xl opacity-30 floating" style="animation-delay: 1s;">❤</div>
+        <div class="absolute bottom-20 left-2/3 text-purple-200 text-4xl opacity-30 floating" style="animation-delay: 1.5s;">❤</div>
+    </div>
+    
+    <div class="container mx-auto px-4 py-10 max-w-6xl relative z-10">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="dancing-font text-5xl md:text-6xl font-bold text-pink-500 mb-4">Happy 7th Monthsary</h1>
+            <div class="flex justify-center items-center">
+                <div class="heart text-4xl text-red-500 mx-4">❤</div>
+                <p class="text-xl text-purple-600">January 7, 2025 - Forever</p>
+                <div class="heart text-4xl text-red-500 mx-4">❤</div>
+            </div>
+        </header>
+        
+        <!-- Love Timer -->
+        <section class="mb-16 text-center">
+            <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">Our Love Timeline</h2>
+            <div class="flex flex-wrap justify-center">
+                <div class="timer-box">
+                    <div id="months" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Months</div>
+                </div>
+                <div class="timer-box">
+                    <div id="days" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Days</div>
+                </div>
+                <div class="timer-box">
+                    <div id="hours" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Hours</div>
+                </div>
+                <div class="timer-box">
+                    <div id="minutes" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Minutes</div>
+                </div>
+                <div class="timer-box">
+                    <div id="seconds" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Seconds</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Love Letter -->
+        <section class="mb-16">
+            <div class="love-letter">
+                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
+                <div class="text-lg leading-relaxed">
+                    <p class="mb-4">Mylove love,</p>
+                    
+                    <p class="mb-4">To my dearest love love I want to say thank youuu and I LOVE YOUUU SO MUCH. 7 months na pala tayo parang ang bilis, dami na rin ng nangyari pero we're going strongger and stronger mylove. </p>
+                    
+                    <p class="mb-4">You've brought so much joy, laughter, and warmth into my life. Tapos kapag nakasmile ka ackkkkk ANG CUTEEEE MOOOOOO. Gusto kita pasayahin lagi love love kooo. </p>
+                                        
+                    <p class="mb-4">Today, we celebrate this 7th monthsary, I want you to know that I LOVE YOUU SO MUCH and I want na we're gonna grow together. Also maachieve natin together dreams natin of all our tomorrows together ha. Lahat ng problem na pagdadaanan natin maoovercome natin lahat ng 'yan and soon magpapakasal and bubuo ng happy family</p>
+                    
+                    <p class="mb-4">Lastly I wanna say thank you for being you, for loving me, and for choosing me. I'll do everything for you love and papakasal tayo ha I LOVE YOUUUUUUUUUUUUUUU SOOOO MUCCCHHHHHHH.</p>
+                    
+                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
+                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Photo Gallery -->
+        <section class="mb-16">
+            <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-8">Our Beautiful Memories</h2>
+            <div class="photo-gallery">
+                <div class="photo-placeholder">
+                    <img src="Web/20250723_194648.jpg" alt="Memory 1" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/93b89907754b8cabfd9d6865de0ad067_0.jpeg" alt="Memory 2" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/97193a3bf5856ad6e461caef7df5176f_0.jpeg" alt="Memory 3" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/af05aabf-9cff-43d2-8c1e-d0bf293a4035photo.png.jpeg" alt="Memory 4" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/20250723_194600.jpg" alt="Memory 5" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/IMG_20250628_153928_614.webp" alt="Memory 6" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/IMG_20250711_161800_355.webp" alt="Memory 1" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Messenger_creation_9F592A94-E85C-4C98-ABD3-5A1B0B237955.jpeg" alt="Memory 2" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Messenger_creation_AA0CBA0E-0280-4280-B107-2FE48277810E.jpeg" alt="Memory 3" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Messenger_creation_C19A4DBE-B531-42AD-9833-3F58322DCF0F.jpeg" alt="Memory 9" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Messenger_creation_DC45E6BB-937F-4039-A6E3-57AFC607E9D2.jpeg" alt="Memory 10" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screen_Recording_20250720_235024_Messenger(1).jpg" alt="Memory 6" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screen_Recording_20250720_235024_Messenger(5).jpg" alt="Memory 12" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screen_Recording_20250720_235024_Messenger.jpg" alt="Memory 13" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20240716_000535_Messenger.png" alt="Memory 3" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20240723_212608_Messenger.png" alt="Memory 4" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250204_211425_Messenger.png" alt="Memory 5" class="w-full h-full object-cover rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250204_211445_Messenger.png" alt="Memory 18" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250227_211154_Discord.png" alt="Memory 3"class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250321_204855_Messenger.png" alt="Memory 4" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250616_192540_Messenger.png" alt="Memory 5" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250625_200947_Messenger.png" alt="Memory 6" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250625_201000_Messenger.png" alt="Memory 1" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250701_202342_Messenger.png" alt="Memory 2" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250712_132747_Messenger.png" alt="Memory 3" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+                <div class="photo-placeholder">
+                    <img src="Web/Screenshot_20250712_132815_Messenger.png" alt="Memory 4" class="max-w-full max-h-full object-contain rounded-md" />
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Our Dreams -->
+        <section class="mb-16">
+            <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-8">Our Dreams Together</h2>
+            <div class="bg-white bg-opacity-80 rounded-xl p-8 shadow-lg">
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fas fa-heart text-pink-400 mt-1 mr-3"></i>
+                        <span>Travel to places we've both dreamed of visiting, creating memories in every corner of the world</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-heart text-pink-400 mt-1 mr-3"></i>
+                        <span>Build a home filled with love, laughter, and maybe a furry friend or two</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-heart text-pink-400 mt-1 mr-3"></i>
+                        <span>Grow together, supporting each other's dreams and ambitions</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-heart text-pink-400 mt-1 mr-3"></i>
+                        <span>Create our own traditions - from silly inside jokes to meaningful anniversary celebrations</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-heart text-pink-400 mt-1 mr-3"></i>
+                        <span>Face life's challenges together, knowing our love is the strongest foundation</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Closing -->
+        <section class="text-center">
+            <div class="heart text-6xl text-red-500 mb-6 inline-block">❤</div>
+            <h2 class="dancing-font text-4xl md:text-5xl text-pink-500 mb-4">I Love You More Than Words Can Express</h2>
+            <p class="text-xl text-purple-600 mb-8">Here's to many more months and years of love, laughter, and happiness together</p>
+            <div class="heart text-6xl text-red-500 mt-6 inline-block">❤</div>
+        </section>
+
+                <!-- Next Big Moment Countdown -->
+        <section class="mb-16 text-center">
+        <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">Countdown to Our Next Monthsary</h2>
+        <div class="flex flex-wrap justify-center">
+            <div class="timer-box">
+            <div id="next-days" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Days</div>
+            </div>
+            <div class="timer-box">
+            <div id="next-hours" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Hours</div>
+            </div>
+            <div class="timer-box">
+            <div id="next-minutes" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Minutes</div>
+            </div>
+            <div class="timer-box">
+            <div id="next-seconds" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Seconds</div>
+            </div>
+        </div>
+        </section>
+
+
+    </div>
+    
+    <script>
+// Background music control
+        const bgMusic = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let isMusicPlaying = false;
+        
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-music');
+            } else {
+                bgMusic.play();
+                musicIcon.classList.remove('fa-music');
+                musicIcon.classList.add('fa-volume-up');
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+        
+                setTimeout(() => {
+  if (!isMusicPlaying) toggleMusic();
+}, 3000);
+        
+        // Love timer
+        function updateLoveTimer() {
+            const startDate = new Date('January 7, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = now - startDate;
+            
+            // Calculate months (approximate)
+            const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30.44));
+            
+            // Calculate days
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            
+            // Calculate hours, minutes, seconds
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('months').innerHTML = months;
+            document.getElementById('days').innerHTML = days;
+            document.getElementById('hours').innerHTML = hours;
+            document.getElementById('minutes').innerHTML = minutes;
+            document.getElementById('seconds').innerHTML = seconds;
+        }
+        
+        // Update timer every second
+        updateLoveTimer();
+        setInterval(updateLoveTimer, 1000);
+        
+        // Confetti effect on click
+        document.addEventListener('click', function(e) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.style.position = 'fixed';
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.color = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb'][Math.floor(Math.random() * 4)];
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '9999';
+            heart.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 60 - 30}deg)`;
+            document.body.appendChild(heart);
+            
+            let posY = e.clientY;
+            const floatUp = setInterval(() => {
+                posY -= 2;
+                heart.style.top = posY + 'px';
+                heart.style.opacity = (parseFloat(heart.style.opacity) || 1) - 0.01;
+                
+                if (parseFloat(heart.style.opacity) <= 0) {
+                    clearInterval(floatUp);
+                    heart.remove();
+                }
+            }, 20);
+        });
+
+                    // Countdown to next monthsary or anniversary
+            function updateNextCountdown() {
+                // Set the date of your next big moment
+                const targetDate = new Date('September 7, 2025 00:00:00').getTime(); // adjust if needed
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    document.getElementById('next-days').innerHTML = '🎉';
+                    document.getElementById('next-hours').innerHTML = '🎉';
+                    document.getElementById('next-minutes').innerHTML = '🎉';
+                    document.getElementById('next-seconds').innerHTML = '🎉';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('next-days').innerHTML = days;
+                document.getElementById('next-hours').innerHTML = hours;
+                document.getElementById('next-minutes').innerHTML = minutes;
+                document.getElementById('next-seconds').innerHTML = seconds;
+            }
+
+            // Update every second
+            updateNextCountdown();
+            setInterval(updateNextCountdown, 1000);
+
+
+    </script>
+</body>
+</html>
