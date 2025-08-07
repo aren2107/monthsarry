@@ -154,31 +154,37 @@
         </header>
         
         <!-- Love Timer -->
-        <section class="mb-16 text-center">
-            <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">Our Love Timeline</h2>
-            <div class="flex flex-wrap justify-center">
-                <div class="timer-box">
-                    <div id="months" class="text-3xl font-bold text-pink-500">0</div>
-                    <div class="text-sm text-purple-600">Months</div>
-                </div>
-                <div class="timer-box">
-                    <div id="days" class="text-3xl font-bold text-pink-500">0</div>
-                    <div class="text-sm text-purple-600">Days</div>
-                </div>
-                <div class="timer-box">
-                    <div id="hours" class="text-3xl font-bold text-pink-500">0</div>
-                    <div class="text-sm text-purple-600">Hours</div>
-                </div>
-                <div class="timer-box">
-                    <div id="minutes" class="text-3xl font-bold text-pink-500">0</div>
-                    <div class="text-sm text-purple-600">Minutes</div>
-                </div>
-                <div class="timer-box">
-                    <div id="seconds" class="text-3xl font-bold text-pink-500">0</div>
-                    <div class="text-sm text-purple-600">Seconds</div>
-                </div>
-            </div>
-        </section>
+        <!-- Love Timer -->
+<section class="mb-16 text-center">
+    <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">Our Love Timeline</h2>
+    <div class="flex flex-wrap justify-center">
+        <div class="timer-box">
+            <div id="years" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Years</div>
+        </div>
+        <div class="timer-box">
+            <div id="months" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Months</div>
+        </div>
+        <div class="timer-box">
+            <div id="days" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Days</div>
+        </div>
+        <div class="timer-box">
+            <div id="hours" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Hours</div>
+        </div>
+        <div class="timer-box">
+            <div id="minutes" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Minutes</div>
+        </div>
+        <div class="timer-box">
+            <div id="seconds" class="text-3xl font-bold text-pink-500">0</div>
+            <div class="text-sm text-purple-600">Seconds</div>
+        </div>
+    </div>
+</section>
+
         
         <!-- Love Letter -->
         <section class="mb-16">
@@ -350,126 +356,125 @@
 
     </div>
     
-    <script>
-// Background music control
-        const bgMusic = document.getElementById('bgMusic');
-        const musicIcon = document.getElementById('musicIcon');
-        let isMusicPlaying = false;
-        
-        function toggleMusic() {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicIcon.classList.remove('fa-volume-up');
-                musicIcon.classList.add('fa-music');
-            } else {
-                bgMusic.play();
-                musicIcon.classList.remove('fa-music');
-                musicIcon.classList.add('fa-volume-up');
-            }
-            isMusicPlaying = !isMusicPlaying;
+ <script>
+    // Background music control
+    const bgMusic = document.getElementById('bgMusic');
+    const musicIcon = document.getElementById('musicIcon');
+    let isMusicPlaying = false;
+
+    function toggleMusic() {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            musicIcon.classList.remove('fa-volume-up');
+            musicIcon.classList.add('fa-music');
+        } else {
+            bgMusic.play();
+            musicIcon.classList.remove('fa-music');
+            musicIcon.classList.add('fa-volume-up');
         }
-        
-
-        
-     function updateLoveTimer() {
-    const startDate = new Date('January 7, 2025 00:00:00');
-    const now = new Date();
-
-    // Compute year and month difference using calendar logic
-    let years = now.getFullYear() - startDate.getFullYear();
-    let months = now.getMonth() - startDate.getMonth();
-    let days = now.getDate() - startDate.getDate();
-
-    if (days < 0) {
-        months--;
-        // Fix for negative days by borrowing days from the previous month
-        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        days += prevMonth.getDate();
+        isMusicPlaying = !isMusicPlaying;
     }
 
-    if (months < 0) {
-        years--;
-        months += 12;
+    // 💖 LOVE TIMER FUNCTION
+    function updateLoveTimer() {
+        const startDate = new Date('January 7, 2025 00:00:00');
+        const now = new Date();
+
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+
+        if (days < 0) {
+            months--;
+            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+            days += prevMonth.getDate();
+        }
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const msSinceMidnight = now - midnight;
+
+        const hours = Math.floor(msSinceMidnight / (1000 * 60 * 60));
+        const minutes = Math.floor((msSinceMidnight % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((msSinceMidnight % (1000 * 60)) / 1000);
+
+        document.getElementById('years').innerHTML = years;
+        document.getElementById('months').innerHTML = months;
+        document.getElementById('days').innerHTML = days;
+        document.getElementById('hours').innerHTML = hours;
+        document.getElementById('minutes').innerHTML = minutes;
+        document.getElementById('seconds').innerHTML = seconds;
     }
 
-    // Calculate hours, minutes, seconds
-    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const msSinceMidnight = now - midnight;
+    // Confetti hearts on click
+    document.addEventListener('click', function(e) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤';
+        heart.style.position = 'fixed';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.color = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb'][Math.floor(Math.random() * 4)];
+        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '9999';
+        heart.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 60 - 30}deg)`;
+        document.body.appendChild(heart);
 
-    const hours = Math.floor(msSinceMidnight / (1000 * 60 * 60));
-    const minutes = Math.floor((msSinceMidnight % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((msSinceMidnight % (1000 * 60)) / 1000);
+        let posY = e.clientY;
+        const floatUp = setInterval(() => {
+            posY -= 2;
+            heart.style.top = posY + 'px';
+            heart.style.opacity = (parseFloat(heart.style.opacity) || 1) - 0.01;
 
-    document.getElementById('years').innerHTML = years;
-    document.getElementById('months').innerHTML = months;
-    document.getElementById('days').innerHTML = days;
-    document.getElementById('hours').innerHTML = hours;
-    document.getElementById('minutes').innerHTML = minutes;
-    document.getElementById('seconds').innerHTML = seconds;
-}
-
-        
-        // Confetti effect on click
-        document.addEventListener('click', function(e) {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤';
-            heart.style.position = 'fixed';
-            heart.style.left = e.clientX + 'px';
-            heart.style.top = e.clientY + 'px';
-            heart.style.color = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb'][Math.floor(Math.random() * 4)];
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.pointerEvents = 'none';
-            heart.style.zIndex = '9999';
-            heart.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 60 - 30}deg)`;
-            document.body.appendChild(heart);
-            
-            let posY = e.clientY;
-            const floatUp = setInterval(() => {
-                posY -= 2;
-                heart.style.top = posY + 'px';
-                heart.style.opacity = (parseFloat(heart.style.opacity) || 1) - 0.01;
-                
-                if (parseFloat(heart.style.opacity) <= 0) {
-                    clearInterval(floatUp);
-                    heart.remove();
-                }
-            }, 20);
-        });
-
-                    // Countdown to next monthsary or anniversary
-            function updateNextCountdown() {
-                // Set the date of your next big moment
-                const targetDate = new Date('September 7, 2025 00:00:00').getTime(); // adjust if needed
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                if (distance < 0) {
-                    document.getElementById('next-days').innerHTML = '🎉';
-                    document.getElementById('next-hours').innerHTML = '🎉';
-                    document.getElementById('next-minutes').innerHTML = '🎉';
-                    document.getElementById('next-seconds').innerHTML = '🎉';
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById('next-days').innerHTML = days;
-                document.getElementById('next-hours').innerHTML = hours;
-                document.getElementById('next-minutes').innerHTML = minutes;
-                document.getElementById('next-seconds').innerHTML = seconds;
+            if (parseFloat(heart.style.opacity) <= 0) {
+                clearInterval(floatUp);
+                heart.remove();
             }
+        }, 20);
+    });
 
-            // Update every second
-            updateNextCountdown();
-            setInterval(updateNextCountdown, 1000);
+    // Countdown to next monthsary
+    function updateNextCountdown() {
+        const targetDate = new Date('September 7, 2025 00:00:00').getTime();
+        const now = new Date().getTime();
+        const distance = targetDate - now;
 
+        if (distance < 0) {
+            document.getElementById('next-days').innerHTML = '🎉';
+            document.getElementById('next-hours').innerHTML = '🎉';
+            document.getElementById('next-minutes').innerHTML = '🎉';
+            document.getElementById('next-seconds').innerHTML = '🎉';
+            return;
+        }
 
-    </script>
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('next-days').innerHTML = days;
+        document.getElementById('next-hours').innerHTML = hours;
+        document.getElementById('next-minutes').innerHTML = minutes;
+        document.getElementById('next-seconds').innerHTML = seconds;
+    }
+
+    // ✅ Place this at the end
+    updateNextCountdown();
+    setInterval(updateNextCountdown, 1000);
+
+    // ✅ Start Love Timer
+    updateLoveTimer();
+    setInterval(updateLoveTimer, 1000);
+
+</script>
+
 </body>
 </html>
+
 
 
 
