@@ -378,7 +378,22 @@
             const distance = now - startDate;
             
             // Calculate months (approximate)
-            const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30.44));
+            const start = new Date('January 7, 2025');
+            const nowDate = new Date();
+            
+            // Calculate full months difference
+            let months =
+              (nowDate.getFullYear() - start.getFullYear()) * 12 +
+              (nowDate.getMonth() - start.getMonth());
+            
+            // If the current day of the month is less than the start day, subtract one month
+            if (nowDate.getDate() < start.getDate()) {
+              months--;
+            }
+            
+            // Make sure it never goes below zero
+            months = Math.max(months, 0);
+
             
             // Calculate days
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -460,5 +475,6 @@
     </script>
 </body>
 </html>
+
 
 
