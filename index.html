@@ -371,44 +371,43 @@
         
 
         
-        // Love timer
-        function updateLoveTimer() {
-            const startDate = new Date('January 7, 2025 00:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = now - startDate;
-            
-            // Calculate months (approximate)
-            const start = new Date('January 7, 2025');
-            const nowDate = new Date();
-            
-            // Calculate full months difference
-            let months =
-              (nowDate.getFullYear() - start.getFullYear()) * 12 +
-              (nowDate.getMonth() - start.getMonth());
-            
-            // If the current day of the month is less than the start day, subtract one month
-            if (nowDate.getDate() < start.getDate()) {
-              months--;
-            }
-            
-            // Make sure it never goes below zero
-            months = Math.max(months, 0);
+     function updateLoveTimer() {
+    const startDate = new Date('January 7, 2025 00:00:00');
+    const now = new Date();
 
-            
-            // Calculate days
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            
-            // Calculate hours, minutes, seconds
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById('months').innerHTML = months;
-            document.getElementById('days').innerHTML = days;
-            document.getElementById('hours').innerHTML = hours;
-            document.getElementById('minutes').innerHTML = minutes;
-            document.getElementById('seconds').innerHTML = seconds;
-        }
+    // Compute year and month difference using calendar logic
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
+    let days = now.getDate() - startDate.getDate();
+
+    if (days < 0) {
+        months--;
+        // Fix for negative days by borrowing days from the previous month
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    // Calculate hours, minutes, seconds
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const msSinceMidnight = now - midnight;
+
+    const hours = Math.floor(msSinceMidnight / (1000 * 60 * 60));
+    const minutes = Math.floor((msSinceMidnight % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((msSinceMidnight % (1000 * 60)) / 1000);
+
+    document.getElementById('years').innerHTML = years;
+    document.getElementById('months').innerHTML = months;
+    document.getElementById('days').innerHTML = days;
+    document.getElementById('hours').innerHTML = hours;
+    document.getElementById('minutes').innerHTML = minutes;
+    document.getElementById('seconds').innerHTML = seconds;
+}
+
         
         // Update timer every second
         updateLoveTimer();
@@ -475,6 +474,7 @@
     </script>
 </body>
 </html>
+
 
 
 
