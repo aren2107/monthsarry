@@ -15,6 +15,16 @@
             color: #5a3d5c;
             overflow-x: hidden;
         }
+
+        /* CSS for smooth fade out*/
+
+        #loader {
+            transition: opacity 1s ease; /* smooth fade over 1 second */
+        }
+        #loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
         
         .dancing-font {
             font-family: 'Dancing Script', cursive;
@@ -124,10 +134,17 @@
     </style>
 </head>
 <body>
+
+    <!-- Loading Screen -->
+<div id="loader" class="fixed inset-0 flex items-center justify-center bg-pink-50 z-50">
+  <div class="text-6xl text-red-500 animate-pulse">❤</div>
+</div>
+
+
     <!-- Background Music (hidden) -->
-    <audio id="bgMusic" loop>
-        <source src="videoplayback.mp3" type="audio/mp3">
-    </audio>
+    <audio id="bgMusic" loop autoplay muted>
+    <source src="videoplayback.mp3" type="audio/mpeg">
+</audio>
     
     <!-- Music Control -->
     <div class="music-control" onclick="toggleMusic()">
@@ -145,7 +162,7 @@
     <div class="container mx-auto px-4 py-10 max-w-6xl relative z-10">
         <!-- Header -->
         <header class="text-center mb-16">
-            <h1 class="dancing-font text-5xl md:text-6xl font-bold text-pink-500 mb-4">Happy 7th Monthsary</h1>
+            <h1 class="dancing-font text-5xl md:text-6xl font-bold text-pink-500 mb-4">Happy 8th Monthsary</h1>
             <div class="flex justify-center items-center">
                 <div class="heart text-4xl text-red-500 mx-4">❤</div>
                 <p class="text-xl text-purple-600">January 7, 2025 - Forever</p>
@@ -154,43 +171,78 @@
         </header>
         
         <!-- Love Timer -->
-        <!-- Love Timer -->
-<section class="mb-16 text-center">
-    <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">Our Love Timeline</h2>
-    <div class="flex flex-wrap justify-center">
-        <div class="timer-box">
-            <div id="years" class="text-3xl font-bold text-pink-500">0</div>
-            <div class="text-sm text-purple-600">Years</div>
-        </div>
-        <div class="timer-box">
-            <div id="months" class="text-3xl font-bold text-pink-500">0</div>
-            <div class="text-sm text-purple-600">Months</div>
-        </div>
-        <div class="timer-box">
-            <div id="days" class="text-3xl font-bold text-pink-500">0</div>
-            <div class="text-sm text-purple-600">Days</div>
-        </div>
-        <div class="timer-box">
-            <div id="hours" class="text-3xl font-bold text-pink-500">0</div>
-            <div class="text-sm text-purple-600">Hours</div>
-        </div>
-        <div class="timer-box">
-            <div id="minutes" class="text-3xl font-bold text-pink-500">0</div>
-            <div class="text-sm text-purple-600">Minutes</div>
-        </div>
-        <div class="timer-box">
-            <div id="seconds" class="text-3xl font-bold text-pink-500">0</div>
-            <div class="text-sm text-purple-600">Seconds</div>
-        </div>
-    </div>
-</section>
+        <section class="mb-16 text-center">
+            <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">Our Love Timeline</h2>
+            <div class="flex flex-wrap justify-center">
+                <div class="timer-box">
+                    <div id="years" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Years</div>
+                </div>
+                <div class="timer-box">
+                    <div id="months" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Months</div>
+                </div>
+                <div class="timer-box">
+                    <div id="days" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Days</div>
+                </div>
+                <div class="timer-box">
+                    <div id="hours" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Hours</div>
+                </div>
+                <div class="timer-box">
+                    <div id="minutes" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Minutes</div>
+                </div>
+                <div class="timer-box">
+                    <div id="seconds" class="text-3xl font-bold text-pink-500">0</div>
+                    <div class="text-sm text-purple-600">Seconds</div>
+                </div>
+            </div>
+                                <div id="typewriter" style="font-size: 24px; font-family: 'Courier New', monospace;"></div>
+        </section>
 
-        
         <!-- Love Letter -->
         <section class="mb-16">
             <div class="love-letter">
                 <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
+                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 8th Monthsarry</h3>
                 <div class="text-lg leading-relaxed">
+
+
+                    <p class="mb-4">Mylove love,</p>
+                    
+                    <p class="mb-4">HIIIIIII LOVEEEEE, another month nanamannnnn and more months, years, and decades pa tayong pagsasamahan.  Tapos ngayon MISS NA MISS KITA LOVEEEEEEE.</p>
+                    
+                    <p class="mb-4">Love, I LOVE YOU SO MUCHHH, uulit ulitin kong sasabihin na napakaswerte ko sayo kasi meron akong ikaw. Meron akong cute, mapag-alaga, pinaparamdam sakin na mahal ako at napakaganda na love love.</p>
+                                        
+                    <p class="mb-4">I can't wait to see youuuu loveee. Excited na ako na makita at mayakap kaaa. 8 Months na tayo at sa susunod in person na tayo magcecelebrate ng mga occations like Monthsarry, Anniversarry, Birthdays and Achivements natin together. See you soon MYLOVEEE.</p>
+                    
+                    <p class="mb-4">HAPPY 8TH MONTHSARRY LOVEEEEE LOVEEEE KOOO I LOVEEE YOUUUUU SOO MUCHHH magpapakasal tayo ha.</p>
+                    
+                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
+                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Quotes -->
+<section class="mb-16 text-center">
+  <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">Little Love Notes</h2>
+  <div id="quoteBox" class="bg-white bg-opacity-80 rounded-xl p-6 max-w-2xl mx-auto shadow-lg text-lg text-purple-700 italic">
+    Loading sweet words...
+  </div>
+</section>
+
+       
+         <!-- Love Letter -->
+        <section class="mb-16">
+            <div class="love-letter">
+                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
+                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 7th Monthsarry </h3>
+                <div class="text-lg leading-relaxed">
+
+
                     <p class="mb-4">Mylove love,</p>
                     
                     <p class="mb-4">To my dearest love love I want to say thank youuu and I LOVE YOUUU SO MUCH. 7 months na pala tayo parang ang bilis, dami na rin ng nangyari pero we're going strongger and stronger mylove. </p>
@@ -206,91 +258,55 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Photo Gallery -->
-        <section class="mb-16">
-            <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-8">Our Beautiful Memories</h2>
-            <div class="photo-gallery">
-                <div class="photo-placeholder">
-                    <img src="Web/20250723_194648.jpg" alt="Memory 1" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/93b89907754b8cabfd9d6865de0ad067_0.jpeg" alt="Memory 2" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/97193a3bf5856ad6e461caef7df5176f_0.jpeg" alt="Memory 3" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/af05aabf-9cff-43d2-8c1e-d0bf293a4035photo.png.jpeg" alt="Memory 4" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/20250723_194600.jpg" alt="Memory 5" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/IMG_20250628_153928_614.webp" alt="Memory 6" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/IMG_20250711_161800_355.webp" alt="Memory 1" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Messenger_creation_9F592A94-E85C-4C98-ABD3-5A1B0B237955.jpeg" alt="Memory 2" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Messenger_creation_AA0CBA0E-0280-4280-B107-2FE48277810E.jpeg" alt="Memory 3" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Messenger_creation_C19A4DBE-B531-42AD-9833-3F58322DCF0F.jpeg" alt="Memory 9" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Messenger_creation_DC45E6BB-937F-4039-A6E3-57AFC607E9D2.jpeg" alt="Memory 10" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screen_Recording_20250720_235024_Messenger(1).jpg" alt="Memory 6" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screen_Recording_20250720_235024_Messenger(5).jpg" alt="Memory 12" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screen_Recording_20250720_235024_Messenger.jpg" alt="Memory 13" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20240716_000535_Messenger.png" alt="Memory 3" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20240723_212608_Messenger.png" alt="Memory 4" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250204_211425_Messenger.png" alt="Memory 5" class="w-full h-full object-cover rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250204_211445_Messenger.png" alt="Memory 18" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250227_211154_Discord.png" alt="Memory 3"class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250321_204855_Messenger.png" alt="Memory 4" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250616_192540_Messenger.png" alt="Memory 5" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250625_200947_Messenger.png" alt="Memory 6" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250625_201000_Messenger.png" alt="Memory 1" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250701_202342_Messenger.png" alt="Memory 2" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250712_132747_Messenger.png" alt="Memory 3" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-                <div class="photo-placeholder">
-                    <img src="Web/Screenshot_20250712_132815_Messenger.png" alt="Memory 4" class="max-w-full max-h-full object-contain rounded-md" />
-                </div>
-            </div>
-        </section>
+       
+
+
+       <!-- Slideshow Memories -->
+<section class="mb-16">
+  <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-8">
+    Our Slideshow Memories
+  </h2>
+  <div class="relative w-full max-w-3xl mx-auto overflow-hidden rounded-xl shadow-lg bg-white bg-opacity-70">
+    <div class="slides flex items-center justify-center">
+      <img src="Web/20250723_194648.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/93b89907754b8cabfd9d6865de0ad067_0.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/97193a3bf5856ad6e461caef7df5176f_0.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/af05aabf-9cff-43d2-8c1e-d0bf293a4035photo.png.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/20250723_194600.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/IMG_20250628_153928_614.webp" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/IMG_20250711_161800_355.webp" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Messenger_creation_9F592A94-E85C-4C98-ABD3-5A1B0B237955.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Messenger_creation_AA0CBA0E-0280-4280-B107-2FE48277810E.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Messenger_creation_C19A4DBE-B531-42AD-9833-3F58322DCF0F.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Messenger_creation_DC45E6BB-937F-4039-A6E3-57AFC607E9D2.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20250720_235024_Messenger(1).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20250720_235024_Messenger(5).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20250720_235024_Messenger.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20240716_000535_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20240723_212608_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250204_211425_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250204_211445_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250227_211154_Discord.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250321_204855_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250616_192540_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250625_200947_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250625_201000_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250701_202342_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250712_132747_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screenshot_20250712_132815_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+    
+    </div>
+    <!-- Controls -->
+    <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow">
+      <i class="fas fa-chevron-left text-purple-600"></i>
+    </button>
+    <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow">
+      <i class="fas fa-chevron-right text-purple-600"></i>
+    </button>
+  </div>
+</section>
+
+
 
         
         <!-- Our Dreams -->
@@ -356,127 +372,244 @@
 
     </div>
     
- <script>
-    // Background music control
-    const bgMusic = document.getElementById('bgMusic');
-    const musicIcon = document.getElementById('musicIcon');
-    let isMusicPlaying = false;
+   <script>
 
-    function toggleMusic() {
-        if (isMusicPlaying) {
-            bgMusic.pause();
-            musicIcon.classList.remove('fa-volume-up');
-            musicIcon.classList.add('fa-music');
-        } else {
-            bgMusic.play();
-            musicIcon.classList.remove('fa-music');
-            musicIcon.classList.add('fa-volume-up');
-        }
-        isMusicPlaying = !isMusicPlaying;
+  // Hide loader with delay + fade
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const loader = document.getElementById("loader");
+      loader.classList.add("hidden");
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 1000); // matches the fade duration
+    }, 1000); // delay before fading out (1s)
+  });
+
+
+    // Random Quotes
+const quotes = [
+  "You're my today and all of my tomorrows 💕",
+  "Every love story is beautiful, but ours is my favorite ✨",
+  "You make my heart smile 💖",
+  "Forever isn’t long enough with you 💞",
+  "Ikaw ang tahanan ko 🏡❤️",
+  "I LOVEE YOUU SO MUCHHHHH"
+];
+
+function showRandomQuote() {
+  const box = document.getElementById("quoteBox");
+  const random = quotes[Math.floor(Math.random() * quotes.length)];
+  box.innerHTML = random;
+}
+setInterval(showRandomQuote, 4000); // changes every 4s
+showRandomQuote();
+
+
+    // Slideshow Logic
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slides img");
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.add("hidden");
+    if (i === index) slide.classList.remove("hidden");
+  });
+}
+
+function nextSlide() {
+  slideIndex = (slideIndex + 1) % slides.length;
+  showSlide(slideIndex);
+}
+
+function prevSlide() {
+  slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+  showSlide(slideIndex);
+}
+
+// Auto play every 4s
+setInterval(nextSlide, 4000);
+showSlide(slideIndex);
+
+    const messages = [
+    "I love you so much 💖",
+    "Happy monthsary, mahal ko 🥰",
+    "Every moment with you is precious ✨",
+    "You're my favorite notification 💌",
+];
+let currentMessage = 0;
+let charIndex = 0;
+
+function typeWriter() {
+    const typewriter = document.getElementById("typewriter");
+    if (!typewriter) return;
+
+    if (charIndex < messages[currentMessage].length) {
+        typewriter.innerHTML += messages[currentMessage].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 100); // typing speed
+    } else {
+        setTimeout(() => {
+            typewriter.innerHTML = '';
+            charIndex = 0;
+            currentMessage = (currentMessage + 1) % messages.length;
+            setTimeout(typeWriter, 300); // small delay before next message
+        }, 2000); // wait 2s before deleting
     }
+}
 
-    // 💖 LOVE TIMER FUNCTION
-    function updateLoveTimer() {
-        const startDate = new Date('January 7, 2025 00:00:00');
-        const now = new Date();
+// Start after load
+window.addEventListener("DOMContentLoaded", typeWriter);
 
-        let years = now.getFullYear() - startDate.getFullYear();
-        let months = now.getMonth() - startDate.getMonth();
-        let days = now.getDate() - startDate.getDate();
+// Background music control
+const bgMusic = document.getElementById('bgMusic');
+const musicIcon = document.getElementById('musicIcon');
+let isMusicPlaying = false;
 
-        if (days < 0) {
-            months--;
-            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-            days += prevMonth.getDate();
-        }
-
-        if (months < 0) {
-            years--;
-            months += 12;
-        }
-
-        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const msSinceMidnight = now - midnight;
-
-        const hours = Math.floor(msSinceMidnight / (1000 * 60 * 60));
-        const minutes = Math.floor((msSinceMidnight % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((msSinceMidnight % (1000 * 60)) / 1000);
-
-        document.getElementById('years').innerHTML = years;
-        document.getElementById('months').innerHTML = months;
-        document.getElementById('days').innerHTML = days;
-        document.getElementById('hours').innerHTML = hours;
-        document.getElementById('minutes').innerHTML = minutes;
-        document.getElementById('seconds').innerHTML = seconds;
-    }
-
-    // Confetti hearts on click
-    document.addEventListener('click', function(e) {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤';
-        heart.style.position = 'fixed';
-        heart.style.left = e.clientX + 'px';
-        heart.style.top = e.clientY + 'px';
-        heart.style.color = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb'][Math.floor(Math.random() * 4)];
-        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        heart.style.pointerEvents = 'none';
-        heart.style.zIndex = '9999';
-        heart.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 60 - 30}deg)`;
-        document.body.appendChild(heart);
-
-        let posY = e.clientY;
-        const floatUp = setInterval(() => {
-            posY -= 2;
-            heart.style.top = posY + 'px';
-            heart.style.opacity = (parseFloat(heart.style.opacity) || 1) - 0.01;
-
-            if (parseFloat(heart.style.opacity) <= 0) {
-                clearInterval(floatUp);
-                heart.remove();
-            }
-        }, 20);
+// Try to autoplay with unmuting after short delay
+setTimeout(() => {
+    bgMusic.muted = false;
+    bgMusic.play().then(() => {
+        musicIcon.classList.remove('fa-music');
+        musicIcon.classList.add('fa-volume-up');
+        isMusicPlaying = true;
+    }).catch(e => {
+        console.warn("Autoplay failed:", e);
     });
 
-    // Countdown to next monthsary
-    function updateNextCountdown() {
-        const targetDate = new Date('September 7, 2025 00:00:00').getTime();
-        const now = new Date().getTime();
-        const distance = targetDate - now;
+    // Start timers
+    updateLoveTimer();
+    updateNextCountdown();
+    setInterval(updateLoveTimer, 1000);
+    setInterval(updateNextCountdown, 1000);
+}, 1000);
 
-        if (distance < 0) {
-            document.getElementById('next-days').innerHTML = '🎉';
-            document.getElementById('next-hours').innerHTML = '🎉';
-            document.getElementById('next-minutes').innerHTML = '🎉';
-            document.getElementById('next-seconds').innerHTML = '🎉';
-            return;
-        }
+// Try to play on first user interaction
+function enableAudioOnInteraction() {
+    bgMusic.muted = false;
+    bgMusic.play().then(() => {
+        musicIcon.classList.remove('fa-music');
+        musicIcon.classList.add('fa-volume-up');
+        isMusicPlaying = true;
+    }).catch(err => {
+        console.warn("Autoplay failed after interaction:", err);
+    });
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.removeEventListener('click', enableAudioOnInteraction);
+}
+document.addEventListener('click', enableAudioOnInteraction);
 
-        document.getElementById('next-days').innerHTML = days;
-        document.getElementById('next-hours').innerHTML = hours;
-        document.getElementById('next-minutes').innerHTML = minutes;
-        document.getElementById('next-seconds').innerHTML = seconds;
+// Toggle music
+function toggleMusic() {
+    if (isMusicPlaying) {
+        bgMusic.pause();
+        musicIcon.classList.remove('fa-volume-up');
+        musicIcon.classList.add('fa-music');
+    } else {
+        bgMusic.play();
+        musicIcon.classList.remove('fa-music');
+        musicIcon.classList.add('fa-volume-up');
+    }
+    isMusicPlaying = !isMusicPlaying;
+}
+
+function updateLoveTimer() {
+    const startDate = new Date('January 7, 2025 00:00:00');
+    const now = new Date();
+
+    // Compute year and month difference using calendar logic
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
+    let days = now.getDate() - startDate.getDate();
+
+    if (days < 0) {
+        months--;
+        // Fix for negative days by borrowing days from previous month
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
     }
 
-    // ✅ Place this at the end
-    updateNextCountdown();
-    setInterval(updateNextCountdown, 1000);
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
 
-    // ✅ Start Love Timer
-    updateLoveTimer();
-    setInterval(updateLoveTimer, 1000);
+    // Calculate hours, minutes, seconds
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const msSinceMidnight = now - midnight;
 
+    const hours = Math.floor(msSinceMidnight / (1000 * 60 * 60));
+    const minutes = Math.floor((msSinceMidnight % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((msSinceMidnight % (1000 * 60)) / 1000);
+
+    document.getElementById('years').innerHTML = years;
+    document.getElementById('months').innerHTML = months;
+    document.getElementById('days').innerHTML = days;
+    document.getElementById('hours').innerHTML = hours;
+    document.getElementById('minutes').innerHTML = minutes;
+    document.getElementById('seconds').innerHTML = seconds;
+}
+
+
+
+// Countdown to next monthsary
+function updateNextCountdown() {
+    const startDate = new Date('January 7, 2025 00:00:00');
+    const now = new Date();
+
+    let nextMonthsary = new Date(startDate);
+    while (nextMonthsary <= now) {
+        nextMonthsary.setMonth(nextMonthsary.getMonth() + 1);
+    }
+
+    const distance = nextMonthsary - now;
+
+    if (distance < 0) {
+        document.getElementById('next-days').innerHTML = '🎉';
+        document.getElementById('next-hours').innerHTML = '🎉';
+        document.getElementById('next-minutes').innerHTML = '🎉';
+        document.getElementById('next-seconds').innerHTML = '🎉';
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('next-days').innerHTML = days;
+    document.getElementById('next-hours').innerHTML = hours;
+    document.getElementById('next-minutes').innerHTML = minutes;
+    document.getElementById('next-seconds').innerHTML = seconds;
+}
+
+// Floating heart effect
+document.addEventListener('click', function(e) {
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤';
+    heart.style.position = 'fixed';
+    heart.style.left = e.clientX + 'px';
+    heart.style.top = e.clientY + 'px';
+    heart.style.color = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb'][Math.floor(Math.random() * 4)];
+    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    heart.style.pointerEvents = 'none';
+    heart.style.zIndex = '9999';
+    heart.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 60 - 30}deg)`;
+    document.body.appendChild(heart);
+
+    let posY = e.clientY;
+    const floatUp = setInterval(() => {
+        posY -= 2;
+        heart.style.top = posY + 'px';
+        heart.style.opacity = (parseFloat(heart.style.opacity) || 1) - 0.01;
+
+        if (parseFloat(heart.style.opacity) <= 0) {
+            clearInterval(floatUp);
+            heart.remove();
+        }
+    }, 20);
+});
 </script>
+
 
 </body>
 </html>
-
-
-
-
-
-
