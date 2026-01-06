@@ -75,7 +75,33 @@ function prevSlide() {
 }
 
 
+document.addEventListener("DOMContentLoaded", () => {
 
+  let vidIndex = 0;
+  const slides = document.querySelectorAll(".yt-slide");
+
+  function showVid(n) {
+    slides.forEach(s => s.classList.remove("show"));
+    slides[n].classList.add("show");
+  }
+
+  function nextVid() {
+    vidIndex = (vidIndex + 1) % slides.length;
+    showVid(vidIndex);
+  }
+
+  function prevVid() {
+    vidIndex = (vidIndex - 1 + slides.length) % slides.length;
+    showVid(vidIndex);
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", nextVid);
+  document.getElementById("prevBtn").addEventListener("click", prevVid);
+
+  // START
+  showVid(vidIndex);
+
+});
 
 // Auto play every 4s
 setInterval(nextSlide, 4000);
