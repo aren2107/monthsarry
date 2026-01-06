@@ -31,6 +31,27 @@ function showRandomQuote() {
 setInterval(showRandomQuote, 4000); // changes every 4s
 showRandomQuote();
 
+function showEnvelopePopup() {
+  document.getElementById("envelopePopup").classList.remove("hidden");
+}
+
+function closeEnvelopePopup() {
+  document.getElementById("envelopePopup").classList.add("hidden");
+}
+
+function openEnvelope() {
+  document.getElementById("videoModal").classList.remove("hidden");
+}
+
+function closeVideo() {
+  const v = document.getElementById("annivVideo");
+  document.getElementById("videoModal").classList.add("hidden");
+  v.pause();
+  v.currentTime = 0;
+}
+
+
+
 
     // Slideshow Logic
 let slideIndex = 0;
@@ -52,6 +73,9 @@ function prevSlide() {
   slideIndex = (slideIndex - 1 + slides.length) % slides.length;
   showSlide(slideIndex);
 }
+
+
+
 
 // Auto play every 4s
 setInterval(nextSlide, 4000);
