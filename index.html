@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our 11th Monthsary</title>
+    <title>Our 1st Anniversarry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
@@ -38,7 +38,7 @@
     <div class="container mx-auto px-4 py-10 max-w-6xl relative z-10">
         <!-- Header -->
         <header class="text-center mb-16">
-            <h1 class="dancing-font text-5xl md:text-6xl font-bold text-pink-500 mb-4">Happy 11th Monthsary</h1>
+            <h1 class="dancing-font text-5xl md:text-6xl font-bold text-pink-500 mb-4">Happy 1st Anniversary</h1>
             <div class="flex justify-center items-center">
                 <div class="heart text-4xl text-red-500 mx-4">❤</div>
                 <p class="text-xl text-purple-600">January 7, 2025 - Forever</p>
@@ -78,29 +78,60 @@
                                 <div id="typewriter" style="font-size: 24px; font-family: 'Courier New', monospace;"></div>
         </section>
 
-        <!-- Love Letter -->
-        <section class="mb-16">
+<!-- OPEN ENVELOPE BUTTON -->
+ <section class="mb-16">
             <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 11th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
+<div style="text-align:center; margin:50px 0;">
+  <button onclick="showEnvelopePopup()"
+    style="padding:14px 28px; background:#f472b6; color:white; border-radius:999px; font-size:16px; cursor:pointer;">
+    💌 Open 1st Anniversary
+  </button>
+</div>
+        
 
+<!-- ENVELOPE POPUP -->
+<div id="envelopePopup" class="popup hidden">
+  <div class="popup-content">
 
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">Hii lovee, una gusto ko po mag thank you kasi nagkita na tayooo. Thank you sainyo nila tito and tita sa pag welcome sakin hehe.</p>
-                    
-                    <p class="mb-4"> Pero alam mo ba nung magksama tayo nasa isip ko na sana hindi na matapos yung araw na yun kasi kapag uuwi ako malungkot nanaman kasi namimiss kita. Love, I LOVE YOU SO MUCHH!!! </p>
-                                        
-                    <p class="mb-4">Next gusto ko mag sorry kasi wala papong one month nawala na yung binigay mo sakin sorry po...</p>
-                    
-                    <p class="mb-4">Lastly, Love babawi ako sayo sa kahit anong paaan gusto ko maparamdam sayo na mahal na maha kita . I LOVE YOUU SOO MUCHHHH. MWAAAAAAAAAAAA!</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
+    <!-- CLOSE -->
+    <span class="popup-close" onclick="closeEnvelopePopup()">✕</span>
+    <h2 style="font-family:'Dancing Script',cursive;font-size:28px;color:#9333ea;margin-bottom:16px;margin-right: 33px;">
+      Our 1st Anniversary 💖
+    </h2>
+
+    <!-- ENVELOPE -->
+    <div class="wrapper" onclick="openEnvelope()">
+      <div class="lid one"></div>
+      <div class="lid two"></div>
+      <div class="envelope"></div>
+      <div class="letter">
+        <p>To Mylove</p>
+    </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- VIDEO POPUP -->
+<div id="videoModal" class="popup hidden">
+  <div class="popup-content">
+
+    <!-- CLOSE VIDEO -->
+    <span class="popup-close" onclick="closeVideo()">✕</span>
+
+    <h2 style="font-family:'Dancing Script',cursive;font-size:26px;color:#ec4899;margin-bottom:12px;">
+      Happy 1st Anniversary ❤️
+    </h2>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/1eJudmS-r7w?si=2lxRNwRA2SP0Yer3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  </div>
+</div>
+    </div>
         </section>
+
+        
+        
 
         <!-- Love Quotes -->
 <section class="mb-16 text-center">
@@ -117,7 +148,13 @@
   </h2>
   <div class="relative w-full max-w-3xl mx-auto overflow-hidden rounded-xl shadow-lg bg-white bg-opacity-70">
     <div class="slides flex items-center justify-center">
-        <img src="Web/2025-11-23-191543096(3).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+      <img src="Web/Screen_Recording_20251231_235640_Messenger(1).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20251231_235640_Messenger(5).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20251231_235640_Messenger(6).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20251231_235640_Messenger(7).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20251231_235640_Messenger.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img src="Web/Screen_Recording_20251231_235640_Messenger(3).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+
         <img src="Web/20251123_124207.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
         <img src="Web/20251123_133359.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
         <img src="Web/20251123_134548.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
@@ -170,6 +207,42 @@
     </button>
   </div>
 </section>
+
+
+
+
+<!-- VIDEO SLIDESHOW -->
+
+
+
+
+<iframe data-testid="embed-iframe" style="border-radius:12px; margin-bottom: 50px;"
+ src="https://open.spotify.com/embed/playlist/4RyYpqDniAIo5nNoQ4RJDs?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+        <!-- Love Letter -->
+        <section class="mb-16">
+            <div class="love-letter">
+                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
+                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 11th Monthsarry</h3>
+                <div class="text-lg leading-relaxed">
+
+
+                    <p class="mb-4">Mylove love,</p>
+                    
+                    <p class="mb-4">Hii lovee, una gusto ko po mag thank you kasi nagkita na tayooo. Thank you sainyo nila tito and tita sa pag welcome sakin hehe.</p>
+                    
+                    <p class="mb-4"> Pero alam mo ba nung magksama tayo nasa isip ko na sana hindi na matapos yung araw na yun kasi kapag uuwi ako malungkot nanaman kasi namimiss kita. Love, I LOVE YOU SO MUCHH!!! </p>
+                                        
+                    <p class="mb-4">Next gusto ko mag sorry kasi wala papong one month nawala na yung binigay mo sakin sorry po...</p>
+                    
+                    <p class="mb-4">Lastly, Love babawi ako sayo sa kahit anong paaan gusto ko maparamdam sayo na mahal na maha kita . I LOVE YOUU SOO MUCHHHH. MWAAAAAAAAAAAA!</p>
+                    
+                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
+                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
+                </div>
+            </div>
+        </section>
+
 
         <!-- Love Letter -->
         <section class="mb-16">
