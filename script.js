@@ -79,7 +79,7 @@ function openGiftLink() {
   }
 
   setTimeout(() => {
-    window.open("YOUR_LINK_HERE", "_blank");
+    window.open("https://gifft.me/o/b/x7rj78ru6rl6pl32rtrc2ccg", "_blank");
   }, 800);
 }
 
