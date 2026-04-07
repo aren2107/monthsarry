@@ -51,37 +51,14 @@ function closeVideo() {
 }
 
 
-function openGiftLink() {
-
-  for (let i = 0; i < 8; i++) {
-    const heart = document.createElement("div");
-    heart.innerHTML = "💖";
-    heart.style.position = "fixed";
-    heart.style.left = "50%";
-    heart.style.top = "50%";
-    heart.style.fontSize = "20px";
-    heart.style.zIndex = "9999";
-    heart.style.pointerEvents = "none";
-    heart.style.transform = `translate(-50%, -50%)`;
-
-    document.body.appendChild(heart);
-
-    let x = (Math.random() - 0.5) * 200;
-    let y = (Math.random() - 0.5) * 200;
-
-    setTimeout(() => {
-      heart.style.transition = "all 1s ease";
-      heart.style.transform = `translate(${x}px, ${y}px)`;
-      heart.style.opacity = "0";
-    }, 50);
-
-    setTimeout(() => heart.remove(), 1000);
-  }
-
-  setTimeout(() => {
-    window.open("https://gifft.me/o/b/x7rj78ru6rl6pl32rtrc2ccg", "_blank");
-  }, 800);
-}
+document.getElementById("openGiftBtn").addEventListener("click", function() {
+    const giftLink = "https://gifft.me/o/b/x7rj78ru6rl6pl32rtrc2ccg";
+    const newWindow = window.open(giftLink, "_blank");
+    if (!newWindow) {
+      // Fallback if popup blocked
+      window.location.href = giftLink;
+    }
+  });
 
     // Slideshow Logic
 let slideIndex = 0;
