@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our 15th Monthsarry</title>
+    <title>Our 17th Monthsarry</title>
+
+    <!-- Warm up connections to third-party origins so the actual requests
+         below are faster once they fire (helps most on slow/high-latency
+         mobile connections) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="preconnect" href="https://i.ibb.co">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
@@ -16,17 +26,159 @@
   <div class="text-6xl text-red-500 animate-pulse">❤</div>
 </div>
 
+    <!-- LOGIN GATE -->
+    <div id="loginGate" class="login-gate">
+      <div class="login-card">
+
+        <!-- STEP 1: choose account -->
+        <div id="loginStepAccounts">
+          <div class="text-5xl mb-3">💑</div>
+          <h2 class="dancing-font text-3xl text-pink-500 mb-2">Who's this?</h2>
+          <p class="text-purple-500 mb-6 text-sm">Pick your name to log in</p>
+
+          <div class="login-account-buttons">
+            <button class="login-account-btn" onclick="selectAccount('aren')">Aren</button>
+            <button class="login-account-btn" onclick="selectAccount('ica')">Ica</button>
+          </div>
+
+          <button class="login-guest-link" onclick="continueAsGuest()">Continue as guest &rarr;</button>
+        </div>
+
+        <!-- STEP 2: password -->
+        <div id="loginStepPassword" class="hidden">
+          <div class="text-5xl mb-3">🔐</div>
+          <h2 class="dancing-font text-3xl text-pink-500 mb-2">Hi, <span id="loginSelectedName"></span>!</h2>
+          <p class="text-purple-500 mb-6 text-sm">Enter your password to log in</p>
+
+          <input type="password" id="loginPasswordInput" class="login-date-input" placeholder="Password" />
+          <p id="loginError" class="login-error hidden">That's not quite right — try again mylove.</p>
+
+          <div class="login-action-row">
+            <button class="login-back-btn" onclick="showAccountStep()">&larr; Back</button>
+            <button class="login-submit-btn" onclick="attemptLogin()">Log In</button>
+          </div>
+
+          <button class="login-guest-link mt-3" onclick="showForgotStep()">Forgot password?</button>
+        </div>
+
+        <!-- STEP 3: forgot password - security question -->
+        <div id="loginStepForgot" class="hidden">
+          <div class="text-5xl mb-3">🔎</div>
+          <h2 class="dancing-font text-3xl text-pink-500 mb-2">Let's find it</h2>
+          <p id="loginSecurityQuestion" class="text-purple-500 mb-6 text-sm">Loading question...</p>
+
+          <input type="text" id="loginSecurityAnswerInput" class="login-date-input" placeholder="Your answer" />
+          <p id="loginForgotError" class="login-error hidden">That's not the answer we have on file.</p>
+
+          <div class="login-action-row">
+            <button class="login-back-btn" onclick="showPasswordStep()">&larr; Back</button>
+            <button class="login-submit-btn" onclick="checkSecurityAnswer()">Submit</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: set new password -->
+        <div id="loginStepReset" class="hidden">
+          <div class="text-5xl mb-3">🔑</div>
+          <h2 class="dancing-font text-3xl text-pink-500 mb-2">New password</h2>
+          <p class="text-purple-500 mb-6 text-sm">Pick a new password, mylove</p>
+
+          <input type="password" id="loginNewPasswordInput" class="login-date-input" placeholder="New password" />
+          <p id="loginResetError" class="login-error hidden">Please enter at least 4 characters.</p>
+
+          <div class="login-action-row">
+            <button class="login-submit-btn" onclick="submitNewPassword()">Save & Log In</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 
     <!-- Background Music (hidden) -->
     <audio id="bgMusic" loop autoplay muted>
     <source src="videoplayback.mp3" type="audio/mpeg">
 </audio>
-    
-    <!-- Music Control -->
-    <div class="music-control" onclick="toggleMusic()">
-        <i id="musicIcon" class="fas fa-music text-purple-500"></i>
+
+    <!-- NAVBAR -->
+    <nav class="site-navbar">
+      <div class="navbar-brand dancing-font">Aren &amp; Ica</div>
+      <div class="navbar-icons">
+        <button class="navbar-icon-btn" onclick="openChatModal()" title="Chat" aria-label="Open our chat">
+          <i class="fas fa-comment-dots"></i>
+        </button>
+        <button class="navbar-icon-btn" onclick="toggleMusic()" title="Music" aria-label="Toggle background music">
+          <i id="musicIcon" class="fas fa-music"></i>
+        </button>
+        <button class="navbar-icon-btn" onclick="toggleDarkMode()" title="Dark Mode" aria-label="Toggle dark mode">
+          <i id="darkModeIcon" class="fas fa-moon"></i>
+        </button>
+        <div class="navbar-account-wrapper">
+          <button class="navbar-icon-btn navbar-account-btn" onclick="toggleAccountMenu()" title="Account" aria-label="Account menu" aria-haspopup="true">
+            <i class="fas fa-user"></i>
+            <span id="navUserLabel" class="navbar-user-label"></span>
+          </button>
+          <div id="accountMenu" class="navbar-account-menu hidden">
+            <button id="changePasswordMenuBtn" onclick="showChangePasswordModal()">Change Password</button>
+            <button onclick="logout()">Log Out</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CHANGE PASSWORD MODAL -->
+    <div id="changePasswordModal" class="popup hidden">
+      <div class="popup-content popup-content--sm">
+        <span class="popup-close" onclick="closeChangePasswordModal()">&times;</span>
+        <h2 class="dancing-font text-2xl text-pink-500">Change Password</h2>
+
+        <input type="password" id="currentPasswordInput" class="login-date-input" placeholder="Current password" />
+        <input type="password" id="newPasswordInput2" class="login-date-input" placeholder="New password" />
+        <input type="password" id="confirmPasswordInput" class="login-date-input" placeholder="Confirm new password" />
+
+        <p id="changePasswordError" class="login-error hidden">Something didn't match — please try again.</p>
+        <p id="changePasswordSuccess" class="login-success hidden">Password updated!</p>
+
+        <button class="login-submit-btn" onclick="submitChangePassword()">Save Password</button>
+      </div>
     </div>
-    
+
+    <!-- CHAT MODAL -->
+    <div id="chatModal" class="popup hidden">
+      <div class="popup-content chat-popup-content">
+        <span class="popup-close" onclick="closeChatModal()">&times;</span>
+        <h2 class="dancing-font text-2xl text-pink-500 mb-1 text-center">Our Chat</h2>
+        <p class="text-center text-purple-500 mb-4 text-sm">A little space for messages between us 💌</p>
+
+        <div class="notes-board">
+
+          <div id="notesList" class="notes-list">
+            <p class="text-purple-400 text-sm text-center">Loading messages...</p>
+          </div>
+
+          <div id="noteComposer" class="notes-composer hidden">
+            <textarea id="noteInput" class="notes-textarea" rows="2" placeholder="Type a message..."></textarea>
+            <div id="photoPreviewRow" class="photo-preview-row hidden">
+              <img id="photoPreviewImg" src="" alt="Selected photo preview" />
+              <button type="button" id="photoPreviewRemove" onclick="clearSelectedPhoto()" title="Remove photo" aria-label="Remove selected photo">&times;</button>
+            </div>
+            <div id="photoUploadProgress" class="photo-upload-progress hidden">
+              <div id="photoUploadProgressBar" class="photo-upload-progress-bar"></div>
+            </div>
+            <div class="notes-composer-row">
+              <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoSelected(event)" />
+              <button type="button" class="notes-photo-btn" onclick="document.getElementById('photoInput').click()" title="Attach a photo" aria-label="Attach a photo">
+                <i class="fas fa-image"></i>
+              </button>
+              <button onclick="submitNote()" class="notes-submit-btn">Send</button>
+            </div>
+          </div>
+
+          <p id="guestNotice" class="notes-guest-notice hidden">This chat is private to Aren and Ica — log in to view and send messages.</p>
+
+        </div>
+      </div>
+    </div>
+
     <!-- Floating Hearts Background -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div class="absolute top-10 left-1/4 text-pink-300 text-4xl opacity-30 floating" style="animation-delay: 0s;">❤</div>
@@ -38,7 +190,7 @@
     <div class="container mx-auto px-4 py-10 max-w-6xl relative z-10">
         <!-- Header -->
         <header class="text-center mb-16">
-            <h1 class="dancing-font text-5xl md:text-6xl font-bold text-pink-500 mb-4">Happy 1st Anniversary</h1>
+            <h1 class="dancing-font text-5xl md:text-6xl font-bold text-pink-500 mb-4">Happy 15th Monthsarry</h1>
             <div class="flex justify-center items-center">
                 <div class="heart text-4xl text-red-500 mx-4">❤</div>
                 <p class="text-xl text-purple-600">January 7, 2025 - Forever</p>
@@ -91,11 +243,11 @@
     <!-- CLOSE -->
     <span class="popup-close" onclick="closeEnvelopePopup()">✕</span>
     <h2 style="font-family:'Dancing Script',cursive;font-size:28px;color:#9333ea;margin-bottom:16px;margin-right: 33px;">
-      Our 1st Anniversary 💖
+      Our 15th Monthsarry 💖
     </h2>
 
     <!-- ENVELOPE -->
-    <div class="wrapper" onclick="openEnvelope()">
+    <div class="wrapper" id="envelopeWrapper" onclick="openEnvelope()" role="button" tabindex="0" aria-label="Open our letter">
       <div class="lid one"></div>
       <div class="lid two"></div>
       <div class="envelope"></div>
@@ -108,9 +260,12 @@
 </div>
 
                 <!-- Open Me Button (Place above Little Love Notes section) -->
-<div class="text-center my-8">
+<div class="text-center my-8 flex flex-wrap justify-center gap-4">
   <button id="openGiftBtn" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
     🎁 Open Me
+  </button>
+  <button onclick="showEnvelopePopup()" class="open-btn">
+    💌 Open Our Letter
   </button>
 </div>
 
@@ -122,39 +277,26 @@
     <span class="popup-close" onclick="closeVideo()">✕</span>
 
     <h2 style="font-family:'Dancing Script',cursive;font-size:26px;color:#ec4899;margin-bottom:12px;">
-      Happy 1st Anniversary ❤️
+      Happy 15th Monthsarry ❤️
     </h2>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/1eJudmS-r7w?si=2lxRNwRA2SP0Yer3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video-container">
+      <iframe data-src="https://www.youtube.com/embed/1eJudmS-r7w?si=2lxRNwRA2SP0Yer3" title="Our Anniversary Video" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
 
   </div>
 </div>
-    </div>
-        </section>
 
- <!-- Love Letter -->
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 15th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
+ <!-- Love Letters Timeline -->
+        <section class="mb-16" id="lettersSection">
+            <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-2">My Dearest Love</h2>
+            <p class="text-center text-purple-500 mb-8 text-sm">A letter for every monthsary — tap a month to read it</p>
 
-
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">Hii lovee, una gusto ko po mag thank you ulit kasi nagkita ulit tayooo. Thank you sainyo nila tito and tita hehe.</p>
-                    
-                    <p class="mb-4">Thank you po kasi nakapag pahinga ako sayo. wag na wag kapo aalis ahh, mamahalin kita ng sobraaa, ibibigay ko lahat lahat sayooo</p>
-                                        
-                    <p class="mb-4">Kaya lahat ng mga binibigay ko sayo maliit na bagay lang mga yun, okay??? you deserve everything mylove.</p>
-                    
-                    <p class="mb-4">Ikaw yung dumating na ayaw kong umalis. kaya para sayo love love mahal na mahal kitaaa MWAAAAAAAAAAAAAAAAAAAAAA. ILOVE YOUUU SO MUCHHHH!!!</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
+            <div class="letters-timeline">
+                <nav class="timeline-nav" id="timelineNav" aria-label="Choose a monthsary letter"></nav>
+                <div class="timeline-letter" id="timelineLetter"></div>
             </div>
-        </section>        
+        </section>
         
 
         <!-- Love Quotes -->
@@ -165,72 +307,117 @@
   </div>
 </section>
 
+        <!-- Surprise Reveal Card -->
+<section class="mb-16 text-center">
+  <h2 class="dancing-font text-3xl md:text-4xl text-purple-600 mb-6">A Little Surprise</h2>
+  <p class="text-purple-500 mb-6">Tap the card, mylove 💌</p>
+
+  <div class="reveal-card" id="revealCard" onclick="toggleRevealCard()" role="button" tabindex="0" aria-label="Tap to reveal a surprise message">
+    <div class="reveal-card-inner" id="revealCardInner">
+
+      <div class="reveal-card-front">
+        <div class="text-5xl mb-3">💌</div>
+        <p class="dancing-font text-2xl text-pink-500">Tap to Reveal</p>
+      </div>
+
+      <div class="reveal-card-back">
+        <p class="mb-3">Hii mylove, smile muna bago basahin mwehehehe. Alam mo ba, kahit ilang beses ko na sinasabi sayo na mahal kita, parang may something na kulang.</p>
+        <p class="mb-3">Gustong gusto kong palagi kang maalagaan, mapasaya, at makasama habang buhay kaya be my wife mwehehehe. Ikaw yung pinaka magandang nangyari sa life ko, at wala akong pagsisisihan kahit kailan.</p>
+        <p class="mb-3">I LOVE YOU SO MUCHHH mylove, ngayon, bukas, at magpakailanman. MWAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p class="dancing-font text-xl text-pink-500 mt-4">Forever yours, Aren</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
  <!-- Slideshow Memories -->
 <section class="mb-16">
   <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-8">
     Our Slideshow Memories
   </h2>
   <div class="relative w-full max-w-3xl mx-auto overflow-hidden rounded-xl shadow-lg bg-white bg-opacity-70">
-    <div class="slides flex items-center justify-center">
-      <img src="Web/Screen_Recording_20251231_235640_Messenger(1).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20251231_235640_Messenger(5).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20251231_235640_Messenger(6).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20251231_235640_Messenger(7).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20251231_235640_Messenger.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20251231_235640_Messenger(3).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+    <div class="slides flex items-center justify-center" id="slidesContainer">
+      <img data-src="Web/Screen_Recording_20251231_235640_Messenger(1).jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20251231_235640_Messenger(5).jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20251231_235640_Messenger(6).jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20251231_235640_Messenger(7).jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20251231_235640_Messenger.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20251231_235640_Messenger(3).jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
 
-        <img src="Web/20251123_124207.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20251123_133359.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20251123_134548.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20251123_134754.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/IMG_20251122_193521_296.webp" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/IMG_20251122_193534_883.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20251124_051527.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20251124_051531.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20251124_051536.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/1763811240087.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/1763970159337.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/1763970191875.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/1763996550777.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20250723_194648.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/93b89907754b8cabfd9d6865de0ad067_0.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/97193a3bf5856ad6e461caef7df5176f_0.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/af05aabf-9cff-43d2-8c1e-d0bf293a4035photo.png.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/20250723_194600.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/IMG_20250628_153928_614.webp" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/IMG_20250711_161800_355.webp" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Messenger_creation_9F592A94-E85C-4C98-ABD3-5A1B0B237955.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Messenger_creation_AA0CBA0E-0280-4280-B107-2FE48277810E.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Messenger_creation_C19A4DBE-B531-42AD-9833-3F58322DCF0F.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Messenger_creation_DC45E6BB-937F-4039-A6E3-57AFC607E9D2.jpeg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20250720_235024_Messenger(1).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20250720_235024_Messenger(5).jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screen_Recording_20250720_235024_Messenger.jpg" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20240716_000535_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20240723_212608_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250204_211425_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250204_211445_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250227_211154_Discord.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250321_204855_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250616_192540_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250625_200947_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250625_201000_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250701_202342_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250712_132747_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
-        <img src="Web/Screenshot_20250712_132815_Messenger.png" class="max-h-[500px] w-auto mx-auto rounded-xl hidden">
+        <img data-src="Web/20251123_124207.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20251123_133359.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20251123_134548.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20251123_134754.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/IMG_20251122_193521_296.webp" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/IMG_20251122_193534_883.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20251124_051527.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20251124_051531.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20251124_051536.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/1763811240087.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/1763970159337.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/1763970191875.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/1763996550777.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20250723_194648.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/93b89907754b8cabfd9d6865de0ad067_0.jpeg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/97193a3bf5856ad6e461caef7df5176f_0.jpeg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/af05aabf-9cff-43d2-8c1e-d0bf293a4035photo.png.jpeg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/20250723_194600.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/IMG_20250628_153928_614.webp" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/IMG_20250711_161800_355.webp" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Messenger_creation_9F592A94-E85C-4C98-ABD3-5A1B0B237955.jpeg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Messenger_creation_AA0CBA0E-0280-4280-B107-2FE48277810E.jpeg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Messenger_creation_C19A4DBE-B531-42AD-9833-3F58322DCF0F.jpeg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Messenger_creation_DC45E6BB-937F-4039-A6E3-57AFC607E9D2.jpeg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20250720_235024_Messenger(1).jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20250720_235024_Messenger(5).jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screen_Recording_20250720_235024_Messenger.jpg" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20240716_000535_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20240723_212608_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250204_211425_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250204_211445_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250227_211154_Discord.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250321_204855_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250616_192540_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250625_200947_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250625_201000_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250701_202342_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250712_132747_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
+        <img data-src="Web/Screenshot_20250712_132815_Messenger.png" alt="A memory photo of us together" class="max-h-[500px] w-auto mx-auto rounded-xl hidden" loading="lazy">
 
         
         
     </div>
     <!-- Controls -->
-    <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow">
+    <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow" aria-label="Previous photo">
       <i class="fas fa-chevron-left text-purple-600"></i>
     </button>
-    <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow">
+    <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow" aria-label="Next photo">
       <i class="fas fa-chevron-right text-purple-600"></i>
     </button>
+    <div id="slideCounter" class="slide-counter">1 / 1</div>
   </div>
 </section>
+
+<!-- SHARED PHOTO GALLERY (uploaded by Aren & Ica) -->
+<section class="mb-16">
+  <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-2">Our Photo Wall</h2>
+  <p class="text-center text-purple-500 mb-6 text-sm">Photos we've shared with each other — upload one from the chat 💌</p>
+
+  <div id="galleryGrid" class="photo-gallery max-w-4xl mx-auto">
+    <p class="text-purple-400 text-sm text-center col-span-full">Loading photos...</p>
+  </div>
+  <p id="galleryGuestNotice" class="notes-guest-notice hidden">This photo wall is private to Aren and Ica — log in to view it.</p>
+</section>
+
+<!-- PHOTO LIGHTBOX -->
+<div id="photoLightbox" class="popup hidden" onclick="closeLightbox(event)">
+  <div class="lightbox-content">
+    <span class="popup-close" onclick="closeLightbox(event)">✕</span>
+    <img id="lightboxImg" src="" alt="Enlarged shared photo" />
+    <p id="lightboxCaption" class="lightbox-caption"></p>
+  </div>
+</div>
 
 
 
@@ -240,8 +427,17 @@
 
 
 
-<iframe data-testid="embed-iframe" style="border-radius:12px; margin-bottom: 50px;"
- src="https://open.spotify.com/embed/playlist/4RyYpqDniAIo5nNoQ4RJDs?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<!-- OUR PLAYLISTS -->
+<section class="mb-16">
+  <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Our Playlists</h2>
+  <div class="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+    <iframe data-testid="embed-iframe" style="border-radius:12px;"
+     src="https://open.spotify.com/embed/playlist/4RyYpqDniAIo5nNoQ4RJDs?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1"></iframe>
+
+    <iframe data-testid="embed-iframe" style="border-radius:12px;"
+     src="https://open.spotify.com/embed/playlist/4hxkAucXshXNVAvhggfsgJ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2"></iframe>
+  </div>
+</section>
 
 
         <!-- VIDEO SLIDESHOW -->
@@ -251,36 +447,40 @@
   <div class="yt-slider">
 
     <div class="yt-slide show">
-      <iframe src="https://www.youtube.com/embed/6upFGlw3Dlo"
+      <iframe title="Our video memory 1" src="https://www.youtube.com/embed/6upFGlw3Dlo"
         allowfullscreen
         allow="autoplay; encrypted-media">
       </iframe>
     </div>
 
     <div class="yt-slide">
-      <iframe src="https://www.youtube.com/embed/s4b0zNMfpcc?si=FP-45oJIiROsylHl"
+      <iframe title="Our video memory 2" data-src="https://www.youtube.com/embed/s4b0zNMfpcc?si=FP-45oJIiROsylHl"
         allowfullscreen
+        loading="lazy"
         allow="autoplay; encrypted-media">
       </iframe>
     </div>
     
     <div class="yt-slide">
-      <iframe src="https://www.youtube.com/embed/Zvkj-8CS8RM?si=yHcmwBjzEINkYZMJ"
+      <iframe title="Our video memory 3" data-src="https://www.youtube.com/embed/Zvkj-8CS8RM?si=yHcmwBjzEINkYZMJ"
         allowfullscreen
+        loading="lazy"
         allow="autoplay; encrypted-media">
       </iframe>
     </div>
 
     <div class="yt-slide">
-      <iframe src="https://www.youtube.com/embed/snYEuUy1Ggk?si=qR1K8IlLFH8BM7YW"
+      <iframe title="Our video memory 4" data-src="https://www.youtube.com/embed/snYEuUy1Ggk?si=qR1K8IlLFH8BM7YW"
         allowfullscreen
+        loading="lazy"
         allow="autoplay; encrypted-media">
       </iframe>
     </div>
 
     <div class="yt-slide">
-      <iframe src="https://www.youtube.com/embed/baIADWJ_vMU?si=D9KlWSEZu7gDkQdz"
+      <iframe title="Our video memory 5" data-src="https://www.youtube.com/embed/baIADWJ_vMU?si=D9KlWSEZu7gDkQdz"
         allowfullscreen
+        loading="lazy"
         allow="autoplay; encrypted-media">
       </iframe>
     </div>
@@ -290,184 +490,9 @@
 
   </div>
 </section>
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 14th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
 
 
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">Hii lovee, I just want to say thank you po hehe. Palagi me mag tthank you kasi meron akong ikaw. Gumagaan pakiramdam ko kapag nakakausap, tinitignan, or kahit ano basta nandyan presence mo. Love I'm greatful ako na meron akong ikaw.</p>
-                    
-                    <p class="mb-4"> Wla na akonghihilingin pang iba. bukod sa maging malakas mga mahal ko sa buhay at maabot mga pangarap natin. Love I LOVE YOU SO MUCHHHHH.</p>
-                                        
-                    <p class="mb-4">Alam mo lagi nasa isip ko. How can I improve myself. ewan ko ba naiisip ko na pano kita bibigyan ng magandang buhay. Alam kong matagal pa tayo magkakasama(kasal) pero gusto ko na maspoil kita like mabigay wants mo or mahelp kita sa mga needs mo.</p>
-                    
-                    <p class="mb-4">Kaya gagawin ko po lahat para sayo love love. gaya ng pagmamahal mo na binibigay sakin. love lagi rin po akong nandito para sayo ahh. nandito para makinig kahit minsan hindi ko alam sasabihin ko. basta makinig sayo, sa mga chikas mo hehe. I LOVE YOU SO MUCHHHH MWAAAAAAAAAAAAAAAAAA</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 13th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
-
-
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">Hii lovee, I just want to say thank you po hehe. Palagi me mag tthank you kasi meron akong ikaw. Gumagaan pakiramdam ko kapag nakakausap, tinitignan, or kahit ano basta nandyan presence mo. Love I'm greatful ako na meron akong ikaw.</p>
-                    
-                    <p class="mb-4">Wag kapo sana magsawa sakin hehe. Ipaparamdam ko sayo na mahal na mahal kita palagi love love ko.</p>
-                                        
-                    <p class="mb-4">Sorry po kasi nakalimutan ko. Dami kopo kasi iniisip lately na parang wala ako sa isip ko.</p>
-                    
-                    <p class="mb-4">sorry po pero tandaan mopo na mahal na mahal kita walang iba. Kaya magpapakasal tayo ahhh walang iwanan. I LOVE YOU SO MUCHHHH MWAAAAAAAAAAAAAAAAAA</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
-        </section></p>
-                    
-                   
-        
-        <!-- Love Letter -->
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 11th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
-
-
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">Hii lovee, una gusto ko po mag thank you kasi nagkita na tayooo. Thank you sainyo nila tito and tita sa pag welcome sakin hehe.</p>
-                    
-                    <p class="mb-4"> Pero alam mo ba nung magksama tayo nasa isip ko na sana hindi na matapos yung araw na yun kasi kapag uuwi ako malungkot nanaman kasi namimiss kita. Love, I LOVE YOU SO MUCHH!!! </p>
-                                        
-                    <p class="mb-4">Next gusto ko mag sorry kasi wala papong one month nawala na yung binigay mo sakin sorry po...</p>
-                    
-                    <p class="mb-4">Lastly, Love babawi ako sayo sa kahit anong paaan gusto ko maparamdam sayo na mahal na maha kita . I LOVE YOUU SOO MUCHHHH. MWAAAAAAAAAAAA!</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Love Letter -->
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 10th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
-
-
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">HIII LOVEE!!! Mag kikita na tayoooooooooo!!! konti nalanggg MISS NA MISS NAPOOO KITA LOVE LOVE KOO</p>
-                    
-                    <p class="mb-4">Ano kayang reaction natin that time. Iniisip ko rin kasi mga gagawin natin huhu. Baka indi tayo payagan na tayo lang sm.</p>
-                                        
-                    <p class="mb-4">MISS NA MISS NA KITA LOVE LOVE KOOO I LOVE YOU SO MUCHHHHHHHHHHH gusto napo kitang yakapin love love ko. Like hindi na 'to miss pangungulila na AAAAAAAAAAAAAAAAA.</p>
-                    
-                    <p class="mb-4">Sorry po medyo late ko 'to mauupload hindi ko nabigay kahapon sorry po. Pero tandaan mopo I LOVE YOU SO MUCHH MWAAAAAAAAAAAAAAAAAAAAAAA</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Love Letter -->
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 9th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
-
-
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">HIII LOVEE!!! 9th Months naa!! This month miss na miss kitaaa like sobrang nangungulila ako sayo😞. Gusto na kita makita para mayakap at mahalikan. Gusto ko ipakita kung gaano kita kamahal love love ko.</p>
-                    
-                    <p class="mb-4">Love love habang ginagawa ko 'to gusto ko sabihin na napaka cutee mo like ackkkkk!!! Napaka ganda na cutie pa ng love love ko </p>
-                                        
-                    <p class="mb-4">Konti nalang rin magkikita na tayooo. excited ako na kinakabahan hanggang ngayon kasi papalapit na nang papalapit. Also, syempre first time natin magkita huhu medyo kinakabayan me pooo hehe.</p>
-                    
-                    <p class="mb-4">Lastly, Again Happy Monthsarry myloveeeee! thank youu po sa lahat ng pinapadama mo saakin. napakaswerte ko sayo at mas gagalingan ko pa sa buhay para sa ating dalawa mamahalin at bibigyan kita ng masayang buhay love. I LOVE YOUU SOO MUCHHHH. MWAAAAAAAAAAAA!</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Love Letter -->
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 8th Monthsarry</h3>
-                <div class="text-lg leading-relaxed">
-
-
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">HIIIIIII LOVEEEEE, another month nanamannnnn and more months, years, and decades pa tayong pagsasamahan.  Tapos ngayon MISS NA MISS KITA LOVEEEEEEE.</p>
-                    
-                    <p class="mb-4">Love, I LOVE YOU SO MUCHHH, uulit ulitin kong sasabihin na napakaswerte ko sayo kasi meron akong ikaw. Meron akong cute, mapag-alaga, pinaparamdam sakin na mahal ako at napakaganda na love love.</p>
-                                        
-                    <p class="mb-4">I can't wait to see youuuu loveee. Excited na ako na makita at mayakap kaaa. 8 Months na tayo at sa susunod in person na tayo magcecelebrate ng mga occations like Monthsarry, Anniversarry, Birthdays and Achivements natin together. See you soon MYLOVEEE.</p>
-                    
-                    <p class="mb-4">HAPPY 8TH MONTHSARRY LOVEEEEE LOVEEEE KOOO I LOVEEE YOUUUUU SOO MUCHHH magpapakasal tayo ha.</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
-        </section>
-
-       
-         <!-- Love Letter -->
-        <section class="mb-16">
-            <div class="love-letter">
-                <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">My Dearest Love</h2>
-                <h3 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-6">Happy 7th Monthsarry </h3>
-                <div class="text-lg leading-relaxed">
-
-
-                    <p class="mb-4">Mylove love,</p>
-                    
-                    <p class="mb-4">To my dearest love love I want to say thank youuu and I LOVE YOUUU SO MUCH. 7 months na pala tayo parang ang bilis, dami na rin ng nangyari pero we're going strongger and stronger mylove. </p>
-                    
-                    <p class="mb-4">You've brought so much joy, laughter, and warmth into my life. Tapos kapag nakasmile ka ackkkkk ANG CUTEEEE MOOOOOO. Gusto kita pasayahin lagi love love kooo. </p>
-                                        
-                    <p class="mb-4">Today, we celebrate this 7th monthsary, I want you to know that I LOVE YOUU SO MUCH and I want na we're gonna grow together. Also maachieve natin together dreams natin of all our tomorrows together ha. Lahat ng problem na pagdadaanan natin maoovercome natin lahat ng 'yan and soon magpapakasal and bubuo ng happy family</p>
-                    
-                    <p class="mb-4">Lastly I wanna say thank you for being you, for loving me, and for choosing me. I'll do everything for you love and papakasal tayo ha I LOVE YOUUUUUUUUUUUUUUU SOOOO MUCCCHHHHHHH.</p>
-                    
-                    <p class="mt-8 dancing-font text-2xl text-pink-500">Forever yours,</p>
-                    <p class="dancing-font text-2xl text-purple-600">Aren</p>
-                </div>
-            </div>
-        </section>
-       
-
-
-      
-
-
-
-        
-        <!-- Our Dreams -->
+                <!-- Our Dreams -->
         <section class="mb-16">
             <h2 class="dancing-font text-3xl md:text-4xl text-center text-purple-600 mb-8">Our Dreams Together</h2>
             <div class="bg-white bg-opacity-80 rounded-xl p-8 shadow-lg">
@@ -530,12 +555,13 @@
 
     </div>
     
-   <script src="script.js">
+   <script src="script.js"></script>
 
-</script>
+   <!-- Firebase (for shared notes board) -->
+   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+   <script src="notes.js"></script>
 
 
 </body>
 </html>
-
-
