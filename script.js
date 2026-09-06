@@ -45,13 +45,23 @@ showRandomQuote();
 // Newest first. Each entry becomes one tappable node in the timeline nav.
 const loveLetters = [
   {
-    month: "17th",
+    month: "20th",
     paragraphs: [
       "Mylove love,",
-      "Hii lovee loveee koooo, I MISS YOU NAAAA!!! I want to hug you napoooo. Happy 17th Monthsarryyyyy pooo!!!",
+      "Hii lovee  koooo, Happy 20th Monthsarry Myloveeee!!! I MISS YOUUU NAPOOOOOO!!! Gustong gusto ko na pumunta dyan ",
+      "Love love koo, Gusto na kita yakapin. Gusto ko na maparamdam pa sayo pagmamahal ko. Gusto kita alagaan, gusto kita ikisss, Gusto ko na lahat!",
+      "Kaya love love wait papo tayo hanggang november ahh. Kaso tagal e kagigil miss na miss na kitaaa  grrr ganun hehe",
+      "Love love koo MAHAL NA MAHAL PO KITAAAA!!! PALAGIIII PAPAKASALL TAYOOO AHHHH!!! MWAAAAAAAAAAAAAAAAAAA!!! HAPPY MONTHSARRY HEHE"
+    ]
+  },
+  {
+    month: "19th",
+    paragraphs: [
+      "Mylove love,",
+      "Hii lovee loveee koooo, I MISS YOU NAAAA!!! I want to hug you napoooo. Happy 19th Monthsarryyyyy pooo!!!",
       "Thank you po love love palagi sa love, care, and everything. I'm so thankful na naging tayo at ako yung bf mo",
       "Gagawin ko po lahat lahat para sayo at para saatin. Habang buhay tayo magsasama po ahhh magpapakasal tayooooo",
-      "Lastly, I want to say sorry kasi walang 16th dito kasi po yung nakalimutan ko nanaman. Pero love love, tandaan mopo na  mahal na mahal kitaaa MWAAAAAAAAAAAAAAAAAAAAAA. ILOVE YOUUU SO MUCHHHH!!!"
+      "Lastly, I want to say sorry kasi walang 16th - 18th dito kasi po yung nakalimutan ko nanaman. Pero love love, tandaan mopo na  mahal na mahal kitaaa MWAAAAAAAAAAAAAAAAAAAAAA. ILOVE YOUUU SO MUCHHHH!!!"
     ]
   },
   {
