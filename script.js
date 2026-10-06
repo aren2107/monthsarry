@@ -44,6 +44,16 @@ showRandomQuote();
 // ---------- Love Letters Timeline ----------
 // Newest first. Each entry becomes one tappable node in the timeline nav.
 const loveLetters = [
+ {
+    month: "21th",
+    paragraphs: [
+      "Mylove love,",
+      "Hii lovee  koooo, Happy 21th Monthsarry Myloveeee kooo!!! I MISS YOUU SO MUCHH POOOOOO!!! I WANT TO KISS YOU NAPOOOO ",
+      "Love love koo, gusto napo kita yakapin ng mahigpitt. Sana magkapera na me para makapagdate na tayoo like naiisip ko na gusto ko na may ibigay sayo something ganun ",
+      "Now sorry po kasi tiis tiis muna kasi wala pa me pera, pero balang araw po babawi me po ahhh. Kaya wag po natin susukuan ang isa't isa at mahinga rin po tayo sa isa't isa ",
+      "Also, I want to say sorry kasi inaasar kita palagi. Love language ko kasi yun e, jk hehe. I LOVE YOUUU SO MUCHHHH HAPPY MONTHSARYY MWAAAAAAAAAAAAAAAAAAAAAAAAA"
+    ]
+  },
   {
     month: "20th",
     paragraphs: [
